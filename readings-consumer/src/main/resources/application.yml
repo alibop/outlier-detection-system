@@ -1,0 +1,23 @@
+info:
+  name: @project.name@
+  version: @project.version@
+spring:
+  application:
+    name: @project.name@
+  cloud:
+    stream:
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers:
+          - localhost:9092
+      bindings:
+        input:
+         binder: kafka
+         destination: outliers
+         content-type: application/json
+         group: @project.name@-0
+        output:
+          binder: kafka
+          destination: outliers
+          content-type: application/json
