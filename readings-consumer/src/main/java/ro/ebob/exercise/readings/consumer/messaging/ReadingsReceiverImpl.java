@@ -33,7 +33,7 @@ public class ReadingsReceiverImpl implements ReadingsReceiver {
       LOG.info("...and saved to db");
   }
   
-  private ReadingsEntity saveToDb(ReadingsMessage data) {
+  protected ReadingsEntity saveToDb(ReadingsMessage data) {
     Collections.sort(data.getReadings());
     return dataService.save(new ReadingsEntity(data.getPublisher(), data.getTime(), Quantiles.median().compute(data.getReadings())));
   }
