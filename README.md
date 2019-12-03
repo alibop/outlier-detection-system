@@ -3,10 +3,8 @@ Outlier Detection System
 
 ***
 - [x] Consumer
-- [x] Web (squized in consumer module as of now)
-- [x] Separate in modules: consumer, data/db, web/rest
-- [ ] Tests (none, TODO)
-
+- [x] Web
+- [x] Tests (one of each covering the whole flow (:happypath:) :sleepy:)
 ## Requirements
 
 * Java 1.8+
