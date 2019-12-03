@@ -1,6 +1,10 @@
 # outlier-detection-system
 Outlier Detection System
 
+Given the following types of JSON messages:
+```{"publisher": "publisher-id", "time": "2015-11-03 15:03:30.352","readings": [ 1, 13, 192, 7, 8, 99, 1014, 4]}```
+are pushed to kafka, the present system is proposing two services to find the outliers of median readings: a cosumer which will store the median of the readings in a Database and a rest service which retrives the last given number of records and mark the outliers.
+
 ***
 - [x] Consumer
 - [x] Web
