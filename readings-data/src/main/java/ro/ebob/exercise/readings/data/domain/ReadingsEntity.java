@@ -1,4 +1,4 @@
-package ro.ebob.exercise.readings.consumer.domain;
+package ro.ebob.exercise.readings.data.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class MedianEntity {
+public class ReadingsEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,10 +15,10 @@ public class MedianEntity {
   private String time;
   private Double median;
 
-  public MedianEntity() {
+  public ReadingsEntity() {
   }
 
-  public MedianEntity(String publisher, String time, Double median) {
+  public ReadingsEntity(String publisher, String time, Double median) {
     this.publisher = publisher;
     this.setTime(time);
     this.median = median;

@@ -4,6 +4,13 @@ info:
 spring:
   application:
     name: @project.name@
+  datasource:
+    url: jdbc:mysql://localhost:3306/readings_db
+    username: readingsuser
+    password: readingsus3r
+  jpa:  
+    hibernate:  
+      ddl-auto: update
   cloud:
     stream:
       default-binder: kafka
@@ -21,3 +28,4 @@ spring:
           binder: kafka
           destination: outliers
           content-type: application/json
+          group: @project.name@-p0

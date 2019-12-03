@@ -12,17 +12,17 @@ import org.springframework.messaging.handler.annotation.Payload;
 import com.google.common.math.Quantiles;
 
 import ro.ebob.exercise.readings.consumer.domain.ReadingsMessage;
-import ro.ebob.exercise.readings.consumer.domain.MedianEntity;
-import ro.ebob.exercise.readings.consumer.service.MedianDataService;
+import ro.ebob.exercise.readings.data.domain.ReadingsEntity;
+import ro.ebob.exercise.readings.data.service.ReadingsDataService;
 
 @EnableBinding(Sink.class)
 public class ReadingsReceiverImpl implements ReadingsReceiver {
 
   public static final String ISO8601_MILLIS = "yyyy-MM-dd HH:mm:ss.SSS";
   private static final Logger LOG = LoggerFactory.getLogger(ReadingsReceiverImpl.class);
-  private final MedianDataService dataService;
+  private final ReadingsDataService dataService;
   
-  public ReadingsReceiverImpl(MedianDataService dataService) {
+  public ReadingsReceiverImpl(ReadingsDataService dataService) {
     this.dataService = dataService;
   }
   
@@ -33,8 +33,8 @@ public class ReadingsReceiverImpl implements ReadingsReceiver {
       LOG.info("...and saved to db");
   }
   
-  private MedianEntity saveToDb(ReadingsMessage data) {
+  private ReadingsEntity saveToDb(ReadingsMessage data) {
     Collections.sort(data.getReadings());
-    return dataService.save(new MedianEntity(data.getPublisher(), data.getTime(), Quantiles.median().compute(data.getReadings())));
+    return dataService.save(new ReadingsEntity(data.getPublisher(), data.getTime(), Quantiles.median().compute(data.getReadings())));
   }
 }

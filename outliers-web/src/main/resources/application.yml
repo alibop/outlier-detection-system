@@ -1,0 +1,13 @@
+info:
+  name: @project.name@
+  version: @project.version@
+spring:
+  application:
+    name: @project.name@
+  datasource:
+    url: jdbc:mysql://localhost:3306/readings_db
+    username: readingsuser
+    password: readingsus3r
+  jpa:  
+    hibernate:  
+      ddl-auto: update
