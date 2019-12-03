@@ -4,14 +4,14 @@ Outlier Detection System
 ***
 - [x] Consumer
 - [x] Web (squized in consumer module as of now)
-- [ ] Separate web module (TODO)
+- [x] Separate in modules: consumer, data/db, web/rest
 - [ ] Tests (none, TODO)
 
 ## Requirements
 
 * Java 1.8+
 * Maven
-* Docker for Kafka, Zookeeper, PostgreSQL
+* Docker for Kafka, Zookeeper, MySQL
 
 ### Kafka
 
@@ -24,7 +24,10 @@ docker run --net=host -d -p 9092:9092 --name=kafka -e KAFKA_ZOOKEEPER_CONNECT=lo
 ```
 
 ### Database
-For the moment in memory H2, web and consumer sharing the same JVM.
+
+```console
+docker run --name readings-db --net=host -p 3306:3306 -e MYSQL_ROOT_PASSWORD=m4st3r -e MYSQL_DATABASE=readings_db -e MYSQL_USER=readingsuser -e MYSQL_PASSWORD=readingsus3r -d mysql
+```
 
 ## Build (Maven)
 
@@ -35,15 +38,21 @@ mvn clean package
 
 ## Run
 
+* Start consumer:
 ```console
 java -jar readings-consumer\target\readings-consumer-0.0.1-SNAPSHOT.jar 
+```
+
+* Start web:
+```console
+java -jar outliers-web\target\outliers-web-0.0.1-SNAPSHOT.jar
 ```
 
 ## Sample calls:
 
 * Publish some readings
 ```console
-curl -XPOST -H "Content-Type: application/json" -d '{"publisher":"pub1", "readings":[29]}' localhost:8080/readings
+$ docker run --net=host --rm confluentinc/cp-kafka bash -c "echo '{\"publisher\":\"pub1\",\"time\":\"2019-12-03 13:8:03.040\",\"readings\":[7,8,9]}' | kafka-console-producer --request-required-acks 1 --broker-list localhost:9092 --topic outliers"
 ```
 
 * Get outliers marked with true for specified publisher (pub1)
